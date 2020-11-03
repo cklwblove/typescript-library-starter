@@ -44,7 +44,7 @@ const options = {
   output: [
     createOutputOptions({
       file: pkg.module,
-      format: 'esm',
+      format: 'es',
     }),
     createOutputOptions({
       file: pkg.main,
