@@ -75,7 +75,7 @@ if (!which("git")) {
 
 // Say hi!
 console.log(
-  colors.cyan("Hi! You're almost ready to make the next great TypeScript library.")
+  colors.cyan("Hi! You're almost ready to make the next great JavaScript library.")
 )
 
 // Generate the library name and start the tasks
@@ -97,7 +97,7 @@ if (process.env.CI == null) {
  * default directory, or if they want a different name to the one suggested
  */
 function libraryNameCreate() {
-  _prompt.get(_promptSchemaLibraryName, (err: any, res: any) => {
+  _prompt.get(_promptSchemaLibraryName, (err, res) => {
     if (err) {
       console.log(colors.red("Sorry, there was an error building the workspace :("))
       removeItems()
@@ -114,7 +114,7 @@ function libraryNameCreate() {
  * has been cloned into a custom directory (i.e. it's not 'typescript-library-starter')
  */
 function libraryNameSuggestedAccept() {
-  _prompt.get(_promptSchemaLibrarySuggest, (err: any, res: any) => {
+  _prompt.get(_promptSchemaLibrarySuggest, (err, res) => {
     if (err) {
       console.log(colors.red("Sorry, you'll need to type the library name"))
       libraryNameCreate()
@@ -131,7 +131,7 @@ function libraryNameSuggestedAccept() {
 /**
  * The library name is suggested by looking at the directory name of the
  * tools parent directory and converting it to kebab-case
- * 
+ *
  * The regex for this looks for any non-word or non-digit character, or
  * an underscore (as it's a word character), and replaces it with a dash.
  * Any leading or trailing dashes are then removed, before the string is
@@ -149,21 +149,19 @@ function libraryNameSuggested() {
  * Checks if the suggested library name is the default, which is 'typescript-library-starter'
  */
 function libraryNameSuggestedIsDefault() {
-  if (libraryNameSuggested() === "typescript-library-starter") {
+  if (libraryNameSuggested() === "javascript-library-starter") {
     return true
   }
 
   return false
 }
 
-
-
 /**
  * Calls all of the functions needed to setup the library
- * 
+ *
  * @param libraryName
  */
-function setupLibrary(libraryName: string) {
+function setupLibrary(libraryName) {
   console.log(
     colors.cyan(
       "\nThanks for the info. The last few changes are being made... hang tight!\n\n"
@@ -202,12 +200,12 @@ function removeItems() {
 
 /**
  * Updates the contents of the template files with the library name or user details
- * 
- * @param libraryName 
- * @param username 
- * @param usermail 
+ *
+ * @param libraryName
+ * @param username
+ * @param usermail
  */
-function modifyContents(libraryName: string, username: string, usermail: string) {
+function modifyContents(libraryName, username, usermail) {
   console.log(colors.underline.white("Modified"))
 
   let files = modifyFiles.map(f => path.resolve(__dirname, "..", f))
@@ -227,10 +225,10 @@ function modifyContents(libraryName: string, username: string, usermail: string)
 
 /**
  * Renames any template files to the new library name
- * 
- * @param libraryName 
+ *
+ * @param libraryName
  */
-function renameItems(libraryName: string) {
+function renameItems(libraryName) {
   console.log(colors.underline.white("Renamed"))
 
   renameFiles.forEach(function(files) {

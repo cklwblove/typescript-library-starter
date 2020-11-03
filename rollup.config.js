@@ -3,10 +3,9 @@ import commonjs from '@rollup/plugin-commonjs'
 import sourceMaps from 'rollup-plugin-sourcemaps'
 import { terser } from 'rollup-plugin-terser'
 import camelCase from 'lodash.camelcase'
-import typescript from 'rollup-plugin-typescript2'
 import json from '@rollup/plugin-json'
-
-const pkg = require('./package.json')
+import babel from '@rollup/plugin-babel'
+import pkg from './package.json'
 
 const external = [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})]
 
@@ -32,6 +31,8 @@ function createOutputOptions(options) {
     banner,
     name: `${libraryName}`,
     sourcemap: true,
+    // https://rollupjs.org/guide/en/#outputexports
+    exports: 'named',
     ...options,
   };
 }
@@ -40,7 +41,7 @@ function createOutputOptions(options) {
  * @type {import('rollup').RollupOptions}
  */
 const options = {
-  input: `src/${libraryName}.ts`,
+  input: `src/${libraryName}.js`,
   output: [
     createOutputOptions({
       file: pkg.module,
@@ -49,12 +50,14 @@ const options = {
     createOutputOptions({
       file: pkg.main,
       format: 'umd',
+      // this is the name of the global object
       name: `${camelCase(libraryName)}`
     }),
     createOutputOptions({
       file: `./dist/${libraryName}.umd.min.js`,
       format: 'umd',
       plugins: [terser()],
+      // this is the name of the global object
       name: `${camelCase(libraryName)}`
     }),
   ],
@@ -66,10 +69,11 @@ const options = {
   plugins: [
     // Allow json resolution
     json(),
-    // Compile TypeScript files
-    typescript(),
     // Allow bundling cjs modules (unlike webpack, rollup doesn't understand cjs)
     commonjs(),
+    babel({
+      babelHelpers: 'bundled'
+    }),
     // Allow node_modules resolution, so you can use 'external' to control
     // which external modules to include in the bundle
     // https://github.com/rollup/plugins/tree/master/packages/node-resolve
