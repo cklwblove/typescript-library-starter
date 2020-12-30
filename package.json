@@ -27,13 +27,11 @@
     "test:watch": "jest --coverage --watch",
     "test:prod": "npm run lint && npm run test -- --no-cache",
     "deploy-docs": "ts-node tools/gh-pages-publish",
-    "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "commit": "git-cz",
     "semantic-release": "semantic-release",
     "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
     "precommit": "lint-staged",
-    "postinstall": "ts-node tools/init",
-    "travis-deploy-once": "travis-deploy-once"
+    "postinstall": "ts-node tools/init"
   },
   "lint-staged": {
     "{src,test}/**/*.ts": [
@@ -56,21 +54,6 @@
       "ts",
       "tsx",
       "js"
-    ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/test/"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 90,
-        "functions": 95,
-        "lines": 95,
-        "statements": 95
-      }
-    },
-    "collectCoverageFrom": [
-      "src/*.{js,ts}"
     ]
   },
   "prettier": {
@@ -93,7 +76,6 @@
     "@types/node": "^14.14.6",
     "colors": "^1.4.0",
     "commitizen": "^4.2.2",
-    "coveralls": "^3.1.0",
     "cross-env": "^7.0.2",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^4.3.0",
@@ -111,7 +93,6 @@
     "rollup-plugin-typescript2": "^0.29.0",
     "semantic-release": "^17.2.2",
     "shelljs": "^0.8.4",
-    "travis-deploy-once": "^5.0.11",
     "ts-jest": "^26.4.3",
     "ts-node": "^9.0.0",
     "tslint": "^6.1.3",
