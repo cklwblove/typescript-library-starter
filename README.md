@@ -14,7 +14,7 @@ A starter project that makes creating a TypeScript library extremely easy.
 ### Usage
 
 ```bash
-git clone https://github.com/cklwblove/typescript-library-starter.git YOURFOLDERNAME
+git clone -b feature-sample https://github.com/cklwblove/typescript-library-starter.git YOURFOLDERNAME
 cd YOURFOLDERNAME
 
 # Run npm install and write your library name when asked. That's all!
